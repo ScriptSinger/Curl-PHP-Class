@@ -40,7 +40,6 @@ $value = $curl->get(CURLOPT_COOKIEFILE);
 ## **Пример**
 
 ```php
-phpСкопировать код
 $curl = Curl::app("https://www.example.com");
 $curl->ssl(false)
      ->headers(true)
@@ -49,7 +48,6 @@ $curl->ssl(false)
      ->postFields(array("field1" => "value1", "field2" => "value2"))
      ->execute();
 $response = $curl->get(CURLOPT_RETURNTRANSFER);
-
 ```
 
 ## **Примечание**
