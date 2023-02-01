@@ -40,17 +40,22 @@ $value = $curl->get(CURLOPT_COOKIEFILE);
 ## **Пример**
 
 ```php
-$curl = Curl::app("https://www.example.com");
-$curl->ssl(false)
-     ->headers(true)
-     ->follow(true)
-     ->userAgent("My User Agent")
-     ->postFields(array("field1" => "value1", "field2" => "value2"))
-     ->execute();
-$response = $curl->get(CURLOPT_RETURNTRANSFER);
+<?php
+include_once('lib/Curl.php');
+include_once('api-key.php');
+$json = '{"model": "text-davinci-003", "prompt": "Say this is a test", "temperature": 0, "max_tokens": 7}';
+$c = Curl::app('https://api.openai.com')
+    ->add_headers([
+        "Authorization: Bearer " . API_KEY,
+        "Content-Type: application/json",
+    ])
+    ->set(CURLOPT_POST, 1)
+    ->set(CURLOPT_POSTFIELDS, $json);
+$response = $c->request('/v1/completions');
+var_dump($response);
 ```
 
 ## **Примечание**
 
-- Обязательно закройте сеанс cURL после использования с **`$curl->__destruct()`** объектом или путем его отмены.
+- Дополнительную информацию об API OpenAI и о том, как получить к нему доступ, можно найти на их веб-сайте по адресу https://beta.openai.com/docs/api-reference/introduction
 - Все параметры cURL можно найти в **[официальной документации cURL](https://curl.haxx.se/libcurl/c/curl_easy_setopt.html)**
